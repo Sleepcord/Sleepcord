@@ -5,3 +5,5 @@ Linux
 Android
 PSP
 3DS
+
+the rest is not know lol
