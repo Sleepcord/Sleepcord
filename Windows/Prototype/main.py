@@ -14,11 +14,13 @@ def login():
     tkinter.Button(root, text="I wand to host a server",bg="#202020", fg="#0050FF", border=0, borderwidth=0, command=host).place(x=5,y=180)
 
 def host():
-    onlogin = True
+    onlogin = False
+    network = 'localhost'
+    print('Lancement du hosting...')
+    print("Lancement de 'hoster.py'")
 
 root.title("SleepCord - " + str(appname))
 login()
-
 root.configure(bg="#202020")
 if onlogin:
     root.geometry("400x200")
@@ -26,4 +28,6 @@ if onlogin:
 else:
     root.geometry("600x400")
     root.resizable(True, True)
+    
+print('Application executé')
 root.mainloop()
