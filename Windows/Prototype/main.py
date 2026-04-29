@@ -28,6 +28,7 @@ def login():
 root.title("SleepCord - " + str(appname))
 loger()
 root.configure(bg="#202020")
+root.iconbitmap("icon.ico")
 if onlogin:
     root.geometry("400x200")
     root.resizable(False, False)
