@@ -14,6 +14,8 @@ globalfile.read("global.ini")
 themefile.read("theme.ini")
 
 themeused = globalfile['THEME']['theme']
+themes_list = themefile.sections()
+themelist = len(themes_list)
 
 #   bglogin = themefile[themeused]['bgloginimage']
 #   if bglogin == 'NaN':
@@ -71,6 +73,37 @@ def showcredits(): #BLA BLA BLA LOL
     Button(creditspage, text='Youtube', bg=buttonbg, fg=foreground, border=border, width=15, command=madyoutube).place(x=157,y=57)
     Button(creditspage, text='More', bg=buttonbg, fg=foreground, border=border, width=17, command=infoonbt).place(x=143,y=87)
 
+def thememenu():
+    themesmenu = Toplevel()
+    themesmenu.title("Select a theme")
+    themesmenu.geometry("400x350")
+    themesmenu.iconbitmap("assets\\Themes.ico")
+    themesmenu.resizable(False, False)
+    themesmenu.configure(bg=background)
+
+    Label(themesmenu, text=f"{themelist} themes have been found!",
+          bg=background, fg=foreground).pack(pady=10)
+
+    for theme in themes_list:
+        Button(
+            themesmenu,text=theme,bg=buttonbg,fg=foreground,border=border,width=20,command=lambda t=theme: apply_theme(t)).pack(pady=2)
+
+def apply_theme(theme_name):
+    globalfile['THEME']['theme'] = theme_name
+    with open("global.ini", "w") as f:
+        globalfile.write(f)
+    global background, foreground, entrybg, buttonbg, extratextcol, border, hostbg
+    themeused = theme_name
+    background = themefile[themeused]['background']
+    foreground = themefile[themeused]['foreground']
+    entrybg = themefile[themeused]['entrybg']
+    buttonbg = themefile[themeused]['buttonbg']
+    extratextcol = themefile[themeused]['extratextcol']
+    border = themefile[themeused]['border']
+    hostbg = themefile[themeused]['hosterspecialbg']
+    actu()
+    
+
 def hoster(): # I wand to host a server
     hosterpage = Toplevel()
     hosterpage.title('Sleepcord - Hoster')
@@ -89,20 +122,29 @@ Username = StringVar(value=globalfile['Main']['username'])
 root.title("Sleepcord - " + str(title))
 root.iconbitmap("assets\\icon.ico")
 
-if page == 0:
-    root.geometry("400x170")
-    root.resizable(False, False)
-    root.configure(bg=background)
-    #   if not bglogin == 'NaN':
-    #       Canvas(root, Image="assets//Themes//" + str(bglogin)).place(x=0,y=0)
-    Label(root, text="Welcome to Sleepcord", bg=background, fg=foreground).pack(padx=0)
-    Label(root, text="Username:", bg=background, fg=foreground).place(x=5, y=30)
-    Label(root, text="Ip address:", bg=background, fg=foreground).place(x=5, y=60)
-    Entry(root, textvariable=Username, bg=entrybg, fg=foreground, border=border, width=53).place(x=70, y=33)
-    Entry(root, textvariable=ipaddress, bg=entrybg, fg=foreground, border=border, width=53).place(x=70, y=63)
+def clear_page(window):
+    for widget in window.winfo_children():
+        widget.destroy()
 
-    Button(root, text=" Login ", bg=buttonbg, fg=foreground, border=border, width=54, command=loginthensave).place(x=5, y=90)
-    Button(root, text="I wand to host a server", bg=background, foreground=extratextcol, border=border,command=hoster).place(x=5, y=145)
-    Button(root, text='Credits', bg=background, fg=foreground, border=border, command=showcredits).place(x=350, y=145)
+def actu():
+    clear_page(root)
+    if page == 0:
+        root.geometry("400x170")
+        root.resizable(False, False)
+        root.configure(bg=background)
+        #   if not bglogin == 'NaN':
+        #       Canvas(root, Image="assets//Themes//" + str(bglogin)).place(x=0,y=0)
+        Label(root, text="Welcome to Sleepcord", bg=background, fg=foreground).pack(padx=0, pady=0)
+        Label(root, text="Username:", bg=background, fg=foreground).place(x=5, y=30)
+        Label(root, text="Ip address:", bg=background, fg=foreground).place(x=5, y=60)
+        Entry(root, textvariable=Username, bg=entrybg, fg=foreground, border=border, width=53).place(x=70, y=33)
+        Entry(root, textvariable=ipaddress, bg=entrybg, fg=foreground, border=border, width=53).place(x=70, y=63)
+
+        Button(root, text=" Login ", bg=buttonbg, fg=foreground, border=border, width=54, command=loginthensave).place(x=5, y=90)
+        Button(root, text="I wand to host a server", bg=background, foreground=extratextcol, border=border,command=hoster).place(x=5, y=145)
+        Button(root, text='Credits', bg=background, fg=foreground, border=border, command=showcredits).place(x=350, y=145)
+        Button(root, text='Themes', fg=foreground, bg=background, border=border, command=thememenu).place(x=0,y=0)
+
+actu()
 
 root.mainloop()
