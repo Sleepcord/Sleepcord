@@ -26,7 +26,6 @@ entrybg = themefile[themeused]['entrybg']
 buttonbg = themefile[themeused]['buttonbg']
 extratextcol = themefile[themeused]['extratextcol']
 border = themefile[themeused]['border']
-hostbg = themefile[themeused]['hosterspecialbg']
 
 def loginthensave():
     globalfile['Main']['username'] = Username.get()
@@ -105,14 +104,16 @@ def apply_theme(theme_name):
     
 
 def hoster(): # I wand to host a server
+    hostbg = themefile[themeused]['hosterspecialbg']
     hosterpage = Toplevel()
     hosterpage.title('Sleepcord - Hoster')
     hosterpage.iconbitmap('assets\\BSOD.ico')
     hosterpage.configure(bg=background)
     hosterpage.geometry("500x500")
     hosterpage.resizable(False, False)
-    Canvas(hosterpage, width=394, height=400, bg=hostbg, border=0).place(x=9,y=10)
-    Canvas(hosterpage, width=400, height=3, bg=hostbg, border=0).place(x=10,y=9)
+    Canvas(hosterpage, width=477, height=400, bg=hostbg, border=0, borderwidth=0).place(x=9,y=10)
+    Canvas(hosterpage, width=475, height=402, bg=hostbg, border=0, borderwidth=0).place(x=10,y=9)
+    Entry(hosterpage, text="'/?' for help", border=border, bg=entrybg, fg=foreground).place(x=5,y=420)
 
 root = Tk()
 
