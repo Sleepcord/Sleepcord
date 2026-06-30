@@ -1,7 +1,7 @@
 {
     "python-envs.pythonProjects": [
         {
-            "path": "Windows/Prototype/main.py",
+            "path": "Windows/Prototype/assets/mainapp/main.py",
             "envManager": "ms-python.python:venv",
             "packageManager": "ms-python.python:pip"
         }
